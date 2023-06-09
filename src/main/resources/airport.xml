@@ -1,0 +1,44 @@
+<Airport>
+    <Flights>
+        <Flight>
+            <Flight_Id>1</Flight_Id>
+            <Arrival>2023-06-08T10:00:00</Arrival>
+            <From>City A</From>
+            <To>City B</To>
+            <Departure>2023-06-08T12:00:00</Departure>
+            <Duration>2 hours</Duration>
+            <Airport_Airport_Id>1</Airport_Airport_Id>
+            <Airplane_AirplaneId>1</Airplane_AirplaneId>
+        </Flight>
+        <Flight>
+            <Flight_Id>2</Flight_Id>
+            <Arrival>2023-06-09T14:00:00</Arrival>
+            <From>City C</From>
+            <To>City D</To>
+            <Departure>2023-06-09T16:00:00</Departure>
+            <Duration>2 hours</Duration>
+            <Airport_Airport_Id>2</Airport_Airport_Id>
+            <Airplane_AirplaneId>2</Airplane_AirplaneId>
+        </Flight>
+    </Flights>
+    <Airlines>
+        <Airline>
+            <Airline_Id>1</Airline_Id>
+            <Airline_Name>Airline A</Airline_Name>
+        </Airline>
+        <Airline>
+            <Airline_Id>2</Airline_Id>
+            <Airline_Name>Airline B</Airline_Name>
+        </Airline>
+    </Airlines>
+    <Airplanes>
+        <Airplane>
+            <Capacity>200</Capacity>
+            <FlightId>1</FlightId>
+        </Airplane>
+        <Airplane>
+            <Capacity>150</Capacity>
+            <FlightId>2</FlightId>
+        </Airplane>
+    </Airplanes>
+</Airport>
