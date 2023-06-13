@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<seat seatId="123">
+    <seatNumber>A1</seatNumber>
+    <classType>ECONOMY</classType>
+    <status>AVAILABLE</status>
+    <airplaneId>456</airplaneId>
+</seat>
