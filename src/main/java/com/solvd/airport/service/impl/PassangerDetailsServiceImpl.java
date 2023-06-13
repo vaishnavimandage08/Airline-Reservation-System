@@ -1,16 +1,16 @@
 package com.solvd.airport.service.impl;
 
-import com.solvd.airport.bin.Passanger_Details;
-import com.solvd.airport.dao.Passanger_DetailsDao;
-import com.solvd.airport.dao.impl.Passanger_DetailsDAOImpl;
+import com.solvd.airport.bin.PassengerDetails;
+import com.solvd.airport.dao.PassengerDetailsDao;
+import com.solvd.airport.dao.impl.PassengerDetailsDAOImpl;
 import com.solvd.airport.service.PassangerDetailsService;
 
 public class PassangerDetailsServiceImpl implements PassangerDetailsService {
 
-    Passanger_DetailsDao passangerDao = new Passanger_DetailsDAOImpl();
+    PassengerDetailsDao passangerDao = new PassengerDetailsDAOImpl();
 
     @Override
-    public void updatePassengerDetails(Passanger_Details details) {
+    public void updatePassengerDetails(PassengerDetails details) {
         if (details != null) {
             passangerDao.update(details);
         } else {

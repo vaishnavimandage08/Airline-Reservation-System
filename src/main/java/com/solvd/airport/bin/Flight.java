@@ -2,7 +2,8 @@ package com.solvd.airport.bin;
 
 import java.time.LocalDateTime;
 
-public class Flight {private int flightId;
+public class Flight {
+    private int flightId;
     private LocalDateTime arrival;
     private int fromAirportId;
     private int toAirportId;
@@ -73,5 +74,15 @@ public class Flight {private int flightId;
 
     public void setAirplaneId(int airplaneId) {
         this.airplaneId = airplaneId;
+    }
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "arrival=" + arrival +
+                ", fromAirportId=" + fromAirportId +
+                ", toAirportId=" + toAirportId +
+                ", departure=" + departure +
+                ", duration='" + duration + '\'' +
+                '}';
     }
 }

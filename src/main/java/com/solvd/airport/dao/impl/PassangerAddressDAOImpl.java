@@ -1,6 +1,6 @@
 package com.solvd.airport.dao.impl;
 
-import com.solvd.airport.bin.PassangerAddress;
+import com.solvd.airport.bin.PassengerAddress;
 import com.solvd.airport.util.ConnectionPool;
 import com.solvd.airport.dao.PassangerAddressDao;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +14,7 @@ public class PassangerAddressDAOImpl implements PassangerAddressDao {
     private static final Logger logger = LogManager.getLogger(PassangerAddressDAOImpl.class);
 
     @Override
-    public int delete(PassangerAddress passangerAddress)  {
+    public int delete(PassengerAddress passangerAddress)  {
         Connection connection = null;
         PreparedStatement statement = null;
         int result = 0;
@@ -45,17 +45,17 @@ public class PassangerAddressDAOImpl implements PassangerAddressDao {
         return result;
     }
     @Override
-    public PassangerAddress get(int id)  {
+    public PassengerAddress get(int id)  {
 
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 
     @Override
-    public int insert(PassangerAddress passangerAddress) {
+    public int insert(PassengerAddress passangerAddress) {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
     @Override
-    public int update(PassangerAddress passangerAddress) {
+    public int update(PassengerAddress passangerAddress) {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 }

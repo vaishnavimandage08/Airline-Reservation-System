@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<airport>
+    <airportId>1</airportId>
+    <name>Frankfurt</name>
+    <country>Germany</country>
+    <city>Berlin</city>
+</airport>

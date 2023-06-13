@@ -1,7 +1,7 @@
 
-CREATE DATABASE airport_database; 
+CREATE DATABASE airport;
 
-USE airport_database;
+USE airport;
 
 CREATE TABLE IF NOT EXISTS `airport`.`Airlines` (
   `Airline_Id` INT PRIMARY KEY NOT NULL,

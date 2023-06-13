@@ -1,8 +1,8 @@
 package com.solvd.airport.dao.impl;
 
-import com.solvd.airport.bin.Passanger_Details;
+import com.solvd.airport.bin.PassengerDetails;
 import com.solvd.airport.util.ConnectionPool;
-import com.solvd.airport.dao.Passanger_DetailsDao;
+import com.solvd.airport.dao.PassengerDetailsDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,12 +10,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Passanger_DetailsDAOImpl implements Passanger_DetailsDao {
-    private static final Logger logger = LogManager.getLogger(Passanger_DetailsDAOImpl.class);
+public class PassengerDetailsDAOImpl implements PassengerDetailsDao {
+    private static final Logger logger = LogManager.getLogger(PassengerDetailsDAOImpl.class);
 
 
     @Override
-    public int update(Passanger_Details passanger_details) {
+    public int update(PassengerDetails passanger_details) {
         Connection connection = null;
         PreparedStatement statement = null;
         int result = 0;
@@ -57,7 +57,7 @@ public class Passanger_DetailsDAOImpl implements Passanger_DetailsDao {
     }
 
     @Override
-    public int delete(Passanger_Details passanger_details) {
+    public int delete(PassengerDetails passanger_details) {
         Connection connection = null;
         PreparedStatement statement = null;
         int result = 0;
@@ -88,12 +88,12 @@ public class Passanger_DetailsDAOImpl implements Passanger_DetailsDao {
         return result;
     }
     @Override
-    public Passanger_Details get(int id)  {
+    public PassengerDetails get(int id)  {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 
     @Override
-    public int insert(Passanger_Details passanger_details) {
+    public int insert(PassengerDetails passanger_details) {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 }

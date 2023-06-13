@@ -1,17 +1,29 @@
 package com.solvd.airport.bin;
 
 
+import jakarta.xml.bind.annotation.*;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Seat {
+    @XmlAttribute
     private int seatId;
+    @XmlElement(name="seatNumber")
     private String seatNumber;
+    @XmlElement
     private ClassType classType;
+    @XmlElement
     private String status;
+    @XmlElement
     private int airplaneId;
 
     public enum ClassType {
         ECONOMY,
         BUSINESS,
         FIRST
+    }
+    public Seat() {
+        // Default no-argument constructor
     }
 
     public Seat(int seatId, String seatNumber, ClassType classType, String status, int airplaneId) {

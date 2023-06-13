@@ -1,8 +1,8 @@
 package com.solvd.airport.service;
-import com.solvd.airport.bin.Passanger_Details;
+import com.solvd.airport.bin.PassengerDetails;
 
 public interface PassangerDetailsService {
 
-    void updatePassengerDetails(Passanger_Details details);
+    void updatePassengerDetails(PassengerDetails details);
 
 }

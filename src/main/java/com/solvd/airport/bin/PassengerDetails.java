@@ -1,6 +1,6 @@
 package com.solvd.airport.bin;
 
-public class Passanger_Details {
+public class PassengerDetails {
     private int passengerId;
     private String firstName;
     private String lastName;
@@ -10,7 +10,7 @@ public class Passanger_Details {
     private int age;
     private String gender;
 
-    public Passanger_Details(int passengerId, String firstName, String lastName, String passportNumber, String emailAddress, String phoneNumber, int age, String gender) {
+    public PassengerDetails(int passengerId, String firstName, String lastName, String passportNumber, String emailAddress, String phoneNumber, int age, String gender) {
         this.passengerId = passengerId;
         this.firstName = firstName;
         this.lastName = lastName;

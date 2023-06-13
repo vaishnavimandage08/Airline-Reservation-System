@@ -1,42 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="Airport">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="Flights">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="Flight" maxOccurs="unbounded">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="Flight_Id" type="xs:int"/>
-                                        <xs:element name="Arrival" type="xs:dateTime"/>
-                                        <xs:element name="From" type="xs:string"/>
-                                        <xs:element name="To" type="xs:string"/>
-                                        <xs:element name="Departure" type="xs:dateTime"/>
-                                        <xs:element name="Duration" type="xs:string"/>
-                                        <xs:element name="Airport_Airport_Id" type="xs:int"/>
-                                        <xs:element name="Airplane_AirplaneId" type="xs:int"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="Airlines">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="Airline" maxOccurs="unbounded">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="Airline_Id" type="xs:int"/>
-                                        <xs:element name="Airline_Name" type="xs:string"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="airport">
+        <xs:sequence>
+            <xs:element name="flight" type="xs:string"/>
+            <xs:element name="airline" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="flight">
+        <xs:all>
+            <xs:element name="arrival" type="xs:string"/>
+            <xs:element name="fromAirportId" type="xs:integer"/>
+            <xs:element name="toAirportId" type="xs:integer"/>
+            <xs:element name="departure" type="xs:string" />
+            <xs:element name="duration" type="xs:int" />
+        </xs:all>
+        <xs:attribute name="airlines" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="airlines">
+        <xs:sequence>
+            <xs:element name="ID" type="xs:int" />
+            <xs:element name="Name" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </xs:schema>

@@ -1,12 +1,12 @@
 package com.solvd.airport.bin;
 
-public class PassangerAddress {
+public class PassengerAddress {
     private int id;
     private String address;
     private String country;
     private int passengerDetailsId;
 
-    public PassangerAddress(int id, String address, String country, int passengerDetailsId) {
+    public PassengerAddress(int id, String address, String country, int passengerDetailsId) {
         this.id = id;
         this.address = address;
         this.country = country;

@@ -1,13 +1,19 @@
 package com.solvd.airport.bin;
 
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 public class Tickets {
+
     private int ticketId;
+
     private String seatNumber;
+
     private int price;
+
     private LocalDateTime purchaseDate;
+
     private int seatId;
+
     private int passengerDetailsId;
 
     public Tickets(int ticketId, String seatNumber, int price, LocalDateTime purchaseDate, int seatId, int passengerDetailsId) {

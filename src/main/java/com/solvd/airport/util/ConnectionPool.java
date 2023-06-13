@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionPool {
-    private static final String PROPERTIES_FILE = "properties";
+    private static final String PROPERTIES_FILE = "db.properties";
 
     public static Connection getConnection() {
 
          Properties properties = new Properties();
 
-        try (FileInputStream input = new FileInputStream("src/main/resources/properties")) {
+        try (FileInputStream input = new FileInputStream("src/main/resources/db.properties")) {
             properties.load(input);
         }catch (FileNotFoundException e) {
         throw new RuntimeException(e);

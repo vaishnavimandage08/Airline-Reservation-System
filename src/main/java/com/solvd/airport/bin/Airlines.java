@@ -9,6 +9,9 @@ public class Airlines {
         this.airlineId = airlineId;
         this.airlineName = airlineName;
     }
+    public Airlines(){
+
+    }
 
     public int getAirlineId() {
         return airlineId;

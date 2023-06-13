@@ -1,6 +1,6 @@
 package com.solvd.airport.dao;
 
-import com.solvd.airport.bin.PassangerAddress;
+import com.solvd.airport.bin.PassengerAddress;
 
-public interface PassangerAddressDao extends IDao<PassangerAddress> {
+public interface PassangerAddressDao extends IDao<PassengerAddress> {
 }
