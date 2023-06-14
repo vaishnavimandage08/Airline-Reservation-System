@@ -1,14 +1,28 @@
 package com.solvd.airport.bin;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PassengerDetails {
+    @JsonProperty
     private int passengerId;
+    @JsonProperty
     private String firstName;
+    @JsonProperty
     private String lastName;
+    @JsonProperty
     private String passportNumber;
+    @JsonProperty
     private String emailAddress;
+    @JsonProperty
     private String phoneNumber;
+    @JsonProperty
     private int age;
+    @JsonProperty
     private String gender;
+
+    public PassengerDetails() {
+
+    }
 
     public PassengerDetails(int passengerId, String firstName, String lastName, String passportNumber, String emailAddress, String phoneNumber, int age, String gender) {
         this.passengerId = passengerId;

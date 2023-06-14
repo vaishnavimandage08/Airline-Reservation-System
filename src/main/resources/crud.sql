@@ -8,7 +8,7 @@ UPDATE `airport`.`Airplane` SET `Capacity` = '300' WHERE `AirplaneId` = 1;
 
 UPDATE `airport`.`Airplane` SET `Capacity` = '300' WHERE `AirplaneId` = 1;
 
-UPDATE `airport`.`Passanger_Details` SET `Last_Name` = 'Smith' WHERE `Passanger_Id` = 1;
+UPDATE `airport`.`PassengerDetails` SET `Last_Name` = 'Smith' WHERE `Passenger_Id` = 1;
 
 UPDATE `airport`.`Flight` SET `Arrival` = '2023-06-01 14:30:00' WHERE `Flight_Id` = 1;
 
@@ -38,9 +38,9 @@ JOIN Flight ON Flight.Airport_Airport_Id = Airport.Airport_Id
 JOIN Airplane ON Flight.Airplane_AirplaneId = Airplane.AirplaneId
 JOIN Seat ON Seat.Airplane_AirplaneId = Airplane.AirplaneId
 JOIN Booking ON Booking.Flight_Id = Flight.Flight_Id
-JOIN Passanger_Details ON Booking.Passanger_Details_Passanger_Id = Passanger_Details.Passanger_Id
-JOIN Payment ON Payment.Booking_Booking_Id = Booking.Booking_Id AND Payment.Booking_Passanger_Details_Passanger_Id = Booking.Passanger_Details_Passanger_Id
-JOIN Tickets ON Tickets.Seat_Seat_Id = Seat.Seat_Id AND Tickets.Passanger_Details_Passanger_Id = Passanger_Details.Passanger_Id
+JOIN PassengerDetails ON Booking.PassengerDetails_Passenger_Id = Passenger_Details.Passenger_Id
+JOIN Payment ON Payment.Booking_Booking_Id = Booking.Booking_Id AND Payment.Booking_Passenger_Details_Passenger_Id = Booking.Passenger_Details_Passenger_Id
+JOIN Tickets ON Tickets.Seat_Seat_Id = Seat.Seat_Id AND Tickets.Passenger_Details_Passenger_Id = Passenger_Details.Passenger_Id
 LIMIT 0, 1000;
 
 
@@ -74,8 +74,8 @@ FROM Booking
 GROUP BY Flight_Id;
 
 SELECT Flight_Id, AVG(Age) AS AverageAge
-FROM Passanger_Details
-JOIN Booking ON Passanger_Details.Passanger_Id = Booking.Passanger_Id
+FROM PassengerDetails
+JOIN Booking ON PassengerDetails.Passanger_Id = Booking.Passanger_Id
 GROUP BY Flight_Id;
 
 SELECT Airplane_AirplaneId, SUM(Duration) AS Totaltime
@@ -93,8 +93,8 @@ GROUP BY Flight_Id
 HAVING COUNT(*) > 50;
 
 SELECT Flight_Id, AVG(Age) AS AverageAge
-FROM Passanger_Details
-JOIN Booking ON Passanger_Details.Passanger_Id = Booking.Passanger_Id
+FROM PassengerDetails
+JOIN Booking ON PassengerDetails.Passenger_Id = Booking.Passenger_Id
 GROUP BY Flight_Id
 HAVING AVG(Age) > 30;
 
@@ -103,9 +103,9 @@ FROM Payment
 GROUP BY Payment_Method
 HAVING SUM(Amount) > 5000;
 
-SELECT Passanger_Id, COUNT(*) AS TotalBookings
+SELECT Passenger_Id, COUNT(*) AS TotalBookings
 FROM Booking
-GROUP BY Passanger_Id
+GROUP BY Passenger_Id
 HAVING COUNT(*) > 5;
 
 SELECT MAX(Capacity) AS MaxSeatingCapacity

@@ -1,20 +1,31 @@
 package com.solvd.airport.bin;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 public class Tickets {
+    @JsonProperty
 
     private int ticketId;
+    @JsonProperty
 
     private String seatNumber;
+    @JsonProperty
 
     private int price;
-
+    @JsonProperty
     private LocalDateTime purchaseDate;
-
+    @JsonProperty
     private int seatId;
-
+    @JsonProperty
     private int passengerDetailsId;
+
+    public Tickets(){
+
+    }
 
     public Tickets(int ticketId, String seatNumber, int price, LocalDateTime purchaseDate, int seatId, int passengerDetailsId) {
         this.ticketId = ticketId;
@@ -71,5 +82,16 @@ public class Tickets {
 
     public void setPassengerDetailsId(int passengerDetailsId) {
         this.passengerDetailsId = passengerDetailsId;
+    }
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", seatNumber='" + seatNumber + '\'' +
+                ", price=" + price +
+                ", purchaseDate=" + purchaseDate +
+                ", seatId=" + seatId +
+                ", passengerDetailsId=" + passengerDetailsId +
+                '}';
     }
 }

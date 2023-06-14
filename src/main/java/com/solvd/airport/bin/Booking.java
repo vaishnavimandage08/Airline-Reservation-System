@@ -1,12 +1,25 @@
 package com.solvd.airport.bin;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Booking {
+    @JsonProperty
     private int bookingId;
+    @JsonProperty
     private int flightId;
+    @JsonIgnore
     private int passengerId;
+    @JsonProperty
     private String seatNumber;
+    @JsonProperty
     private Status status;
+    @JsonProperty
     private int passengerDetailsId;
+
+    public Booking(){
+
+    }
 
     public enum Status {
         AVAILABLE,
@@ -69,5 +82,16 @@ public class Booking {
 
     public void setPassengerDetailsId(int passengerDetailsId) {
         this.passengerDetailsId = passengerDetailsId;
+    }
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId=" + bookingId +
+                ", flightId=" + flightId +
+                ", passengerId=" + passengerId +
+                ", seatNumber='" + seatNumber + '\'' +
+                ", status=" + status +
+                ", passengerDetailsId=" + passengerDetailsId +
+                '}';
     }
 }

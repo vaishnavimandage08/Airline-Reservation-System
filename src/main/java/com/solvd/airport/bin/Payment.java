@@ -1,13 +1,21 @@
 package com.solvd.airport.bin;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 
 public class Payment {
+    @JsonProperty
     private int paymentId;
+    @JsonProperty
     private String paymentMethod;
+    @JsonProperty
     private LocalDateTime paymentDate;
+    @JsonProperty
     private int amount;
+    @JsonProperty
     private int bookingId;
+    @JsonProperty
     private int passengerDetailsId;
 
     public Payment(int paymentId, String paymentMethod, LocalDateTime paymentDate, int amount, int bookingId, int passengerDetailsId) {

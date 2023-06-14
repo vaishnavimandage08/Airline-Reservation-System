@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS `airport`.`Airport` (
   `City` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`Airport_Id`));
 
-CREATE TABLE IF NOT EXISTS `airport`.`Passanger_Details` (
-  `Passanger_Id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `airport`.`PassengerDetails` (
+  `Passenger_Id` INT NOT NULL,
   `First_Name` VARCHAR(45) NULL,
   `Last_Name` VARCHAR(45) NULL,
   `Passport_Number` VARCHAR(45) NOT NULL,
@@ -25,19 +25,19 @@ CREATE TABLE IF NOT EXISTS `airport`.`Passanger_Details` (
   `Phone_Number` VARCHAR(90) NOT NULL,
   `Age` SMALLINT(8) NOT NULL,
   `Gender` VARCHAR(25) NOT NULL,
-  PRIMARY KEY (`Passanger_Id`));
+  PRIMARY KEY (`Passenger_Id`));
 
 
 CREATE TABLE IF NOT EXISTS `airport`.`Booking` (
   `Booking_Id` INT NOT NULL,
   `Flight_Id` INT NOT NULL,
-  `Passanger_Id` INT NOT NULL,
+  `Passenger_Id` INT NOT NULL,
   `Seat_Number` CHAR(8) NOT NULL,
   `Status` ENUM('Available', 'Booked', 'Occupied') NOT NULL,
-  `Passanger_Details_Passanger_Id` INT NOT NULL,
-  PRIMARY KEY (`Booking_Id`, `Passanger_Details_Passanger_Id`),
-    FOREIGN KEY (`Passanger_Details_Passanger_Id`)
-    REFERENCES `airport`.`Passanger_Details` (`Passanger_Id`)
+  `PassengerDetails_Passenger_Id` INT NOT NULL,
+  PRIMARY KEY (`Booking_Id`, `PassengerDetails_Passenger_Id`),
+    FOREIGN KEY (`PassengerDetails_Passenger_Id`)
+    REFERENCES `airport`.`PassengerDetails` (`Passenger_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `airport`.`Payment` (
   `Payment_Date` DATETIME NOT NULL,
   `Amount` INT NOT NULL,
   `Booking_Booking_Id` INT NOT NULL,
-  `Booking_Passanger_Details_Passanger_Id` INT NOT NULL,
-  PRIMARY KEY (`Payment_Id`, `Booking_Booking_Id`, `Booking_Passanger_Details_Passanger_Id`),
-    FOREIGN KEY (`Booking_Booking_Id` , `Booking_Passanger_Details_Passanger_Id`)
-    REFERENCES `airport`.`Booking` (`Booking_Id` , `Passanger_Details_Passanger_Id`)
+  `Booking_PassengerDetails_Passenger_Id` INT NOT NULL,
+  PRIMARY KEY (`Payment_Id`, `Booking_Booking_Id`, `Booking_PassengerDetails_Passenger_Id`),
+    FOREIGN KEY (`Booking_Booking_Id` , `Booking_PassengerDetails_Passenger_Id`)
+    REFERENCES `airport`.`Booking` (`Booking_Id` , `PassengerDetails_Passenger_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -100,14 +100,14 @@ CREATE TABLE IF NOT EXISTS `airport`.`Tickets` (
   `Price` INT NULL,
   `Purchase_date` DATETIME NOT NULL,
   `Seat_Seat_Id` INT NOT NULL,
-  `Passanger_Details_Passanger_Id` INT NOT NULL,
-  PRIMARY KEY (`Ticket_Id`, `Seat_Seat_Id`, `Passanger_Details_Passanger_Id`),
+  `PassengerDetails_Passenger_Id` INT NOT NULL,
+  PRIMARY KEY (`Ticket_Id`, `Seat_Seat_Id`, `PassengerDetails_Passenger_Id`),
     FOREIGN KEY (`Seat_Seat_Id`)
     REFERENCES `airport`.`Seat` (`Seat_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    FOREIGN KEY (`Passanger_Details_Passanger_Id`)
-    REFERENCES `airport`.`Passanger_Details` (`Passanger_Id`)
+    FOREIGN KEY (`PassengerDetails_Passenger_Id`)
+    REFERENCES `airport`.`PassengerDetails` (`Passenger_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -125,29 +125,29 @@ CREATE TABLE IF NOT EXISTS `airport`.`Airport_has_Airlines` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE TABLE IF NOT EXISTS `airport`.`PassangerAddress` (
+CREATE TABLE IF NOT EXISTS `airport`.`PassengerAddress` (
   `Id` INT NOT NULL,
   `Address` VARCHAR(45) NOT NULL,
   `Country` VARCHAR(45) NOT NULL,
-  `Passanger_Details_Passanger_Id` INT NOT NULL,
-  PRIMARY KEY (`Id`, `Passanger_Details_Passanger_Id`),
-    FOREIGN KEY (`Passanger_Details_Passanger_Id`)
-    REFERENCES `airport`.`Passanger_Details` (`Passanger_Id`)
+  `PassengerDetails_Passenger_Id` INT NOT NULL,
+  PRIMARY KEY (`Id`, `Passenger_Details_Passenger_Id`),
+    FOREIGN KEY (`PassengerDetails_Passenger_Id`)
+    REFERENCES `airport`.`PassengerDetails` (`Passenger_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
     
-INSERT INTO `airport`.`Airlines` (`Airline_Id`, `Airline_Name`, `IATA`)
+INSERT INTO `airport`.`Airlines` (`Airline_Id`, `Airline_Name`)
 VALUES
-    (1, 'Delta Air Lines', 'DL'),
-    (2, 'British Airways', 'BA'),
-    (3, 'Emirates', 'EK'),
-    (4, 'Lufthansa', 'LH'),
-    (5, 'Air France', 'AF'),
-    (6, 'Qatar Airways', 'QR'),
-    (7, 'United Airlines', 'UA'),
-    (8, 'Singapore Airlines', 'SQ'),
-    (9, 'Cathay Pacific', 'CX'),
-    (10, 'American Airlines', 'AA');
+    (1, 'Delta Air Lines'),
+    (2, 'British Airways'),
+    (3, 'Emirates'),
+    (4, 'Lufthansa'),
+    (5, 'Air France'),
+    (6, 'Qatar Airways'),
+    (7, 'United Airlines'),
+    (8, 'Singapore Airlines'),
+    (9, 'Cathay Pacific'),
+    (10, 'American Airlines');
     
 INSERT INTO `airport`.`Seat` (`Seat_Id`, `Seat_Number`, `Class`, `Status`)
 VALUES
@@ -175,11 +175,11 @@ VALUES
    (2, 'DEF456', '2023-05-31 14:30:00', 700, 'Airport2', 'Airport3', 2, '2023-05-31 12:00:00', '2h 30m', '1 stop', 2, 2),
    (3, 'GHI789', '2023-06-01 18:45:00', 900, 'Airport3', 'Airport1', 3, '2023-06-01 16:15:00', '2h 30m', 'Non-stop', 3, 3);
    
-INSERT INTO `airport`.`Payment` (`Payment_Id`, `Payment_Method`, `Payment_Date`, `Amount`, `Booking_Booking_Id`, `Booking_Passanger_Details_Passanger_Id`)
+INSERT INTO `airport`.`Payment` (`Payment_Id`, `Payment_Method`, `Payment_Date`, `Amount`, `Booking_Booking_Id`, `Booking_PassengerDetails_Passenger_Id`)
 VALUES (1, 'Credit Card', '2023-05-31 14:30:00', 100, 1, 1),
        (2, 'JFK Airport', 'New York', 'United States');
        
-INSERT INTO `airport`.`Tickets` (`Ticket_Id`, `Seat_Number`, `Price`, `Purchase_date`, `Seat_Seat_Id`, `Passanger_Details_Passanger_Id`)
+INSERT INTO `airport`.`Tickets` (`Ticket_Id`, `Seat_Number`, `Price`, `Purchase_date`, `Seat_Seat_Id`, `PassengerDetails_Passenger_Id`)
 VALUES (1, 'A1', 100, '2023-05-31 14:30:00', 1, 1),
        (2, 'B2', 150, '2023-06-01 09:45:00', 2, 2);
 
