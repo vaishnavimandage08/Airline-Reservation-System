@@ -1,0 +1,12 @@
+{
+  "PassengerDetails" : {
+    "passengerId" : 8,
+    "firstName" : "Tom",
+    "lastName" : "Johnson",
+    "passportNumber" : "HI789",
+    "emailAddress" : "tom.johnson@example.com",
+    "phoneNumber" : "5555555555",
+    "age" : 45,
+    "gender" : "Male"
+  }
+}

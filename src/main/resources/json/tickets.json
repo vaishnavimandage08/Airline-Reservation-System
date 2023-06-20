@@ -1,0 +1,11 @@
+{
+  "tickets": {
+    "ticketId": 1,
+    "seatNumber": "A1",
+    "price": 100,
+    "purchaseDate": "2023-06-13T14:30:00",
+    "seatId": 123,
+    "passengerDetailsId": 456
+  }
+}
+

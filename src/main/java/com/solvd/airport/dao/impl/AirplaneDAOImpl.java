@@ -13,148 +13,79 @@ import java.sql.SQLException;
 
 public class AirplaneDAOImpl implements AirplaneDao {
     private static final Logger logger = LogManager.getLogger(AirplaneDAOImpl.class);
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String INSERT = "INSERT INTO Airplane (Airplane_Id, Capacity) VALUES (?, ?)";
+    private static final String UPDATE = "UPDATE Airplane SET Capacity = ? WHERE Airplane_Id = ?";
+    private static final String DELETE = "DELETE FROM Airplane WHERE Airplane_Id = ?";
+    private static final String GET = "SELECT * FROM Airplane WHERE Airplane_Id = ?";
+
     @Override
-    public Airplane get(int id)  {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+    public Airplane get(int id) {
         Airplane airplane = null;
-        try {
-            connection = ConnectionPool.getConnection();
-            String query = "SELECT * FROM Airplane WHERE Airplane_Id = ?";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                int airplaneId = resultSet.getInt("Airplane_Id");
-                String capacity = resultSet.getString("Capacity");
-
-                airplane = new Airplane(airplaneId, capacity);
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(GET)) {
+            ps.setInt(1, id);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    int airplaneId = resultSet.getInt("Airplane_Id");
+                    String capacity = resultSet.getString("Capacity");
+                    airplane = new Airplane(airplaneId, capacity);
+                }
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());
-        }
-        finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close statement: " + e.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close connection: " + e.getMessage());
-                }
-            }
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return airplane;
     }
 
     @Override
     public int insert(Airplane airplane) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+        Connection connection = connectionPool.getConnection();
         int result = 0;
-
-        try {
-            connection = ConnectionPool.getConnection();
-            String query = "INSERT INTO `airport`.`Airplane` (`AirplaneId`, `Capacity`) VALUES (?, ?)";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, airplane.getAirplaneId());
-            statement.setString(2, airplane.getCapacity());
-
-            result = statement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
+            preparedStatement.setInt(1, airplane.getAirplaneId());
+            preparedStatement.setString(2, airplane.getCapacity());
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
-        }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close statement: " + e.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close connection: " + e.getMessage());
-                }
-            }
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return result;
     }
 
     @Override
     public int update(Airplane airplane) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+        Connection connection = connectionPool.getConnection();
         int result = 0;
-
-        try {
-            connection = ConnectionPool.getConnection();
-            String query = "INSERT INTO airplane(Airplane_Id, Capacity) VALUES (?, ?)";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, airplane.getAirplaneId());
-            statement.setString(2, airplane.getCapacity());
-
-            result = statement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
+            preparedStatement.setString(1, airplane.getCapacity());
+            preparedStatement.setInt(2, airplane.getAirplaneId());
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
-      }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close statement: " + e.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close connection: " + e.getMessage());
-                }
-            }
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return result;
     }
 
     @Override
     public int delete(Airplane airplane) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+        Connection connection = connectionPool.getConnection();
         int result = 0;
-
-        try {
-            connection = ConnectionPool.getConnection();
-            String query = "DELETE FROM airport WHERE AirplaneId = ?";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, airplane.getAirplaneId());
-
-            result = statement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+            preparedStatement.setInt(1, airplane.getAirplaneId());
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
-        }finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close statement: " + e.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close connection: " + e.getMessage());
-                }
-            }
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return result;
     }
 }
+
+

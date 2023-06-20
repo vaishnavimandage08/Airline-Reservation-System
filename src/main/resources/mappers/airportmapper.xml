@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airport.db.mappers.AirportMapper">
+    <insert id="insertAirport" parameterType="com.solvd.airport.bin.Airport">
+        INSERT INTO airport (Airport_Id, Name, Country, City) VALUES (#{airportId},#{name}, #{country},#{city})
+    </insert>
+
+    <select id="getAirportById" parameterType="int" resultType="com.solvd.airport.bin.Airport">
+        SELECT * FROM airport WHERE Airport_Id = #{airportId}
+    </select>
+</mapper>

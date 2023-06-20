@@ -1,14 +1,16 @@
 package com.solvd.airport.bin;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName(value = "booking")
 public class Booking {
+
     @JsonProperty
     private int bookingId;
     @JsonProperty
     private int flightId;
-    @JsonIgnore
+    @JsonProperty
     private int passengerId;
     @JsonProperty
     private String seatNumber;

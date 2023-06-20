@@ -5,7 +5,7 @@ import com.solvd.airport.dao.PassengerDetailsDao;
 import com.solvd.airport.dao.impl.PassengerDetailsDAOImpl;
 import com.solvd.airport.service.PassangerDetailsService;
 
-public class PassangerDetailsServiceImpl implements PassangerDetailsService {
+public class PassengerDetailsServiceImpl implements PassangerDetailsService {
 
     PassengerDetailsDao passangerDao = new PassengerDetailsDAOImpl();
 

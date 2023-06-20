@@ -1,11 +1,12 @@
 package com.solvd.airport.bin;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.time.LocalDateTime;
+
+@JsonRootName(value = "tickets")
 public class Tickets {
     @JsonProperty
 

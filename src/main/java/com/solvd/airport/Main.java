@@ -1,35 +1,29 @@
 package com.solvd.airport;
-import com.solvd.airport.bin.Airlines;
-import com.solvd.airport.bin.Airport;
-import com.solvd.airport.bin.PassengerDetails;
-import com.solvd.airport.bin.Seat;
+
+import com.solvd.airport.bin.*;
 import com.solvd.airport.service.AirlineService;
-import com.solvd.airport.service.AirportService;
-import com.solvd.airport.service.PassangerDetailsService;
+import com.solvd.airport.service.impl.PassengerDetailsServiceImpl;
+import com.solvd.airport.service.mybatisimpl.AirportServiceImpl;
 import com.solvd.airport.service.impl.AirlineServiceImpl;
-import com.solvd.airport.service.impl.AirportServiceImpl;
-import com.solvd.airport.service.impl.PassangerDetailsServiceImpl;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
+import com.solvd.airport.service.impl.PaymentParserServiceImpl;
+import com.solvd.airport.service.impl.SeatParserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
+import java.time.LocalDateTime;
 
+;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
 
-        AirportService airportService = new AirportServiceImpl();
+        AirportServiceImpl airportService = new AirportServiceImpl();
         // Create a new airport
-        Airport airport = new Airport(7, "Setac", "United States", "Tacoma");
+        Airport airport = new Airport(11, "John Doe Airport", "USA", "New York");
         airportService.insertAirport(airport);
         logger.info("Inserted airport: " + airport);
-
 
         // Get an airport by its ID
         int airportId = 3;
@@ -43,7 +37,6 @@ public class Main {
 
         // Updating airlines
         Airlines airline = new Airlines(1, "Delta");
-        airline.setAirlineName("Updated Airline 1");
         airlineService.updateAirline(airline);
         logger.info("Airline updated.");
 
@@ -52,40 +45,47 @@ public class Main {
         logger.info("Airline deleted.");
 
         // Creating an instance of the service
-        PassangerDetailsService passangerDetailsService = new PassangerDetailsServiceImpl();
+        PassengerDetailsServiceImpl passangerDetailsServiceimpl = new PassengerDetailsServiceImpl();
 
         // Creating a passenger details object with parameters
         PassengerDetails details = new PassengerDetails(5, "Taylor", "doe", "AB123456", "taylor.doe@example.com", "1233567890", 25, "Male");
 
         // Updating passenger details
-        passangerDetailsService.updatePassengerDetails(details);
+        passangerDetailsServiceimpl.updatePassengerDetails(details);
         logger.info("Passenger details updated.");
 
-        //Marshaller with JAXB
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Seat.class);
-            Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            Seat seat = new Seat(123, "A1", Seat.ClassType.ECONOMY, "AVAILABLE",
-            456);
-            marshaller.marshal(seat, new File("src/main/resources/seat.xml"));
-            logger.info("XML file generated successfully.");
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        AirlineServiceImpl airlineServiceImpl = new AirlineServiceImpl();
+        logger.info(airlineServiceImpl.getResult("src/main/resources/xml/airport.xml"));
 
-        //Unmarshalled with JAXB
-        File xmlFile = new File("src/main/resources/input.xml");
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Airport.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        //JAXB marshalling
+        SeatParserServiceImpl seatParserServiceImpl = new SeatParserServiceImpl();
+        Seat seat = new Seat(123, "A1", Seat.ClassType.ECONOMY, "AVAILABLE", 456);
+        String seatXmlFile = "src/main/resources/seat.xml";
+        seatParserServiceImpl.marshall(seat, seatXmlFile);
 
-            Airport airport1 = (Airport) unmarshaller.unmarshal(xmlFile);
-            logger.info("Airport details: " + airport1.getAirportId() + ", " + airport1.getName() + ", " +
-                    airport1.getCountry() + ", " + airport1.getCity());
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        //JAXB unmarshalling
+        String airportXmlFile = "src/main/resources/xml/input.xml";
+        Airport airport1 = seatParserServiceImpl.unmarshall(airportXmlFile);
+        logger.info("Airport details: " + airport1.getAirportId() + ", " + airport1.getName() + ", " +
+                airport1.getCountry() + ", " + airport1.getCity());
 
+        //JACKSON Serialize
+        PaymentParserServiceImpl paymentParserServiceImpl = new PaymentParserServiceImpl();
+        PassengerDetails passengerDetails = new PassengerDetails(8, "Tom", "Johnson", "HI789", "tom.johnson@example.com", "5555555555", 45, "Male");
+        String file = "src/main/resources/json/payment.json";
+        paymentParserServiceImpl.serialization(passengerDetails, file);
+        Payment payment = new Payment(4, "Credit Card", LocalDateTime.parse("2023-06-13T14:30:00"), 100, 1, 1);
+        String file1 = "src/main/resources/payment.json";
+        paymentParserServiceImpl.serialization(payment, file1);
+        logger.info("Serialization completed successfully.");
+
+        //JACKSON Deserialize
+         paymentParserServiceImpl = new PaymentParserServiceImpl();
+         String JsonFile = "src/main/resources/json/booking.json";
+         String JsonFile1 = "src/main/resources/json/tickets.json";
+        Booking booking = paymentParserServiceImpl.deserializeBooking(JsonFile);
+        Tickets tickets = paymentParserServiceImpl.deserializeTickets(JsonFile1);
+        logger.info(booking);
+        logger.info(tickets);
     }
 }

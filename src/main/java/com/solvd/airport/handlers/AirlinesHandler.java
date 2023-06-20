@@ -1,25 +1,21 @@
 package com.solvd.airport.handlers;
 
 import com.solvd.airport.bin.Airlines;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.xml.sax.Attributes;
 
 public class AirlinesHandler extends DefaultHandler {
 
     private static final String AIRLINE_ID = "airline_id";
     private static final String AIRLINE_NAME = "airline_name";
-    private static final String AIRLINE = "airline";
+    private static final String AIRLINES = "airlines";
 
     private Airlines airline;
     private StringBuilder elementValue;
-    private List<Airlines> airlines;
 
-    public List<Airlines> getAirlines() {
-        return airlines;
+    public Airlines getResult() {
+        return airline;
     }
 
     @Override
@@ -30,25 +26,25 @@ public class AirlinesHandler extends DefaultHandler {
             elementValue.append(ch, start, length);
         }
     }
-
     @Override
-    public void startDocument(){
-        airlines = new ArrayList<>();
+    public void startDocument() {
+        airline = new Airlines();
     }
 
-    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException, SAXException {
+        super.startElement(uri, localName, qName, attributes);
         switch (qName) {
             case AIRLINE_ID:
             case AIRLINE_NAME:
                 elementValue = new StringBuilder();
                 break;
-            case AIRLINE:
-                airline = new Airlines();
-                break;
         }
     }
+
     @Override
-    public void endElement(String uri, String localName, String qName){
+    public void endElement(String uri, String localName, String qName) {
         if (airline != null) {
             switch (qName) {
                 case AIRLINE_ID:
@@ -57,12 +53,8 @@ public class AirlinesHandler extends DefaultHandler {
                 case AIRLINE_NAME:
                     airline.setAirlineName(elementValue.toString());
                     break;
-                case AIRLINE:
-                    airlines.add(airline);
             }
         }
-        elementValue = null;
     }
+
 }
-
-

@@ -12,88 +12,57 @@ import java.sql.SQLException;
 
 public class PassengerDetailsDAOImpl implements PassengerDetailsDao {
     private static final Logger logger = LogManager.getLogger(PassengerDetailsDAOImpl.class);
-
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String UPDATE = "UPDATE PassengerDetails SET First_Name=?, Last_Name=?, Passport_Number=?, EmailAddress=?, Phone_Number=?, Age=?, Gender=? WHERE Passenger_Id=?";
+    private static final String DELETE = "DELETE FROM PassengerDetails WHERE Passenger_Id=?";
 
     @Override
-    public int update(PassengerDetails passanger_details) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public int update(PassengerDetails passengerDetails) {
+        Connection connection = connectionPool.getConnection();
         int result = 0;
 
-        try {
-            connection = ConnectionPool.getConnection();
-            String query = "UPDATE `airport`.`Passanger_Details` SET `First_Name` = ?, `Last_Name` = ?, `Passport_Number` = ?, `EmailAddress` = ?, `Phone_Number` = ?, `Age` = ?, `Gender` = ? WHERE `Passanger_Id` = ?";
-            statement = connection.prepareStatement(query);
-            statement.setString(1, passanger_details.getFirstName());
-            statement.setString(2, passanger_details.getLastName());
-            statement.setString(3, passanger_details.getPassportNumber());
-            statement.setString(4, passanger_details.getEmailAddress());
-            statement.setString(5, passanger_details.getPhoneNumber());
-            statement.setInt(6, passanger_details.getAge());
-            statement.setString(7, passanger_details.getGender());
-            statement.setInt(8, passanger_details.getPassengerId());
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
+            preparedStatement.setString(1, passengerDetails.getFirstName());
+            preparedStatement.setString(2, passengerDetails.getLastName());
+            preparedStatement.setString(3, passengerDetails.getPassportNumber());
+            preparedStatement.setString(4, passengerDetails.getEmailAddress());
+            preparedStatement.setString(5, passengerDetails.getPhoneNumber());
+            preparedStatement.setInt(6, passengerDetails.getAge());
+            preparedStatement.setString(7, passengerDetails.getGender());
+            preparedStatement.setInt(8, passengerDetails.getPassengerId());
 
-            result = statement.executeUpdate();
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close statement: " + e.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error("Failed to close connection: " + e.getMessage());
-                }
-            }
+            connectionPool.releaseConnection(connection);
         }
-
         return result;
     }
 
     @Override
-    public int delete(PassengerDetails passanger_details) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public int delete(PassengerDetails passengerDetails) {
+        Connection connection = connectionPool.getConnection();
         int result = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+            preparedStatement.setInt(1, passengerDetails.getPassengerId());
 
-        try {
-            connection = ConnectionPool.getConnection();
-            String query = "DELETE FROM airport WHERE Passenger_Id = ?";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, passanger_details.getPassengerId());
-
-            result = statement.executeUpdate();
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
-        }    if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                logger.error("Failed to close statement: " + e.getMessage());
-            }
-        }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                logger.error("Failed to close connection: " + e.getMessage());
-            }
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return result;
     }
+
     @Override
     public PassengerDetails get(int id)  {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 
     @Override
-    public int insert(PassengerDetails passanger_details) {
+    public int insert(PassengerDetails passengerdetails) {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 }

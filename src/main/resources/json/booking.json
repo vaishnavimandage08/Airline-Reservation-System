@@ -1,0 +1,10 @@
+{
+  "booking": {
+    "bookingId": 1,
+    "flightId": 123,
+    "passengerId": 456,
+    "seatNumber": "A1",
+    "status": "AVAILABLE",
+    "passengerDetailsId": 789
+  }
+}

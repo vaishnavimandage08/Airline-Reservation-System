@@ -3,6 +3,7 @@ package com.solvd.airport.bin;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PassengerDetails {
+
     @JsonProperty
     private int passengerId;
     @JsonProperty

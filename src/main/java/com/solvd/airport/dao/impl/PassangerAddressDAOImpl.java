@@ -12,38 +12,23 @@ import java.sql.SQLException;
 
 public class PassangerAddressDAOImpl implements PassangerAddressDao {
     private static final Logger logger = LogManager.getLogger(PassangerAddressDAOImpl.class);
-
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String DELETE ="DELETE FROM PassengerAddress WHERE Id = ?";
     @Override
-    public int delete(PassengerAddress passangerAddress)  {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public int delete(PassengerAddress passengerAddress) {
+        Connection connection = connectionPool.getConnection();
         int result = 0;
-
-        try {
-            connection = ConnectionPool.getConnection();
-            String query = "DELETE FROM PassangerAddress WHERE Id = ?";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, passangerAddress.getPassengerDetailsId());
-
-            result = statement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+            preparedStatement.setInt(1, passengerAddress.getPassengerDetailsId());
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
-        }    if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                logger.error("Failed to close statement: " + e.getMessage());
-            }
-        }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                logger.error("Failed to close connection: " + e.getMessage());
-            }
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
         return result;
     }
+
     @Override
     public PassengerAddress get(int id)  {
 
@@ -51,11 +36,11 @@ public class PassangerAddressDAOImpl implements PassangerAddressDao {
     }
 
     @Override
-    public int insert(PassengerAddress passangerAddress) {
+    public int insert(PassengerAddress passengerAddress) {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
     @Override
-    public int update(PassengerAddress passangerAddress) {
+    public int update(PassengerAddress passengerAddress) {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 }
