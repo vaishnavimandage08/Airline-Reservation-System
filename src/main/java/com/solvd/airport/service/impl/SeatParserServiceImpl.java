@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 public class SeatParserServiceImpl implements SeatParserService {
-
     private final static Logger logger = LogManager.getLogger(SeatParserService.class);
 
     @Override

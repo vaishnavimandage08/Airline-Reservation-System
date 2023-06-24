@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airport.dao.AirlinesDao">
+    <insert id="insertAirline" parameterType="com.solvd.airport.bin.Airlines">
+        INSERT INTO airlines (Airline_Id, Airline_Name) VALUES (#{airlineId}, #{airlineName})
+    </insert>
+    <select id="getAirlineById" parameterType="int" resultType="com.solvd.airport.bin.Airlines">
+            SELECT * FROM airlines WHERE Airline_Id = #{airlineId}
+    </select>
+    <update id="updateAirline" parameterType="com.solvd.airport.bin.Airlines">
+        UPDATE airlines SET Airline_Name = #{airlineName} WHERE Airline_Id = #{airlineId}
+    </update>
+    <delete id="deleteAirline" parameterType="int">
+        DELETE FROM airlines WHERE Airline_Id = #{airlineId}
+    </delete>
+    <select id="getAirlineByUri" parameterType="String" resultType="com.solvd.airport.bin.Airlines">
+        SELECT * FROM airlines WHERE Uri = #{uri}
+    </select>
+
+</mapper>

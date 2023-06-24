@@ -8,7 +8,7 @@ import jakarta.xml.bind.annotation.*;
 public class Seat {
     @XmlAttribute
     private int seatId;
-    @XmlElement(name="seatNumber")
+    @XmlElement(name = "seatNumber")
     private String seatNumber;
     @XmlElement
     private ClassType classType;
@@ -22,6 +22,7 @@ public class Seat {
         BUSINESS,
         FIRST
     }
+
     public Seat() {
         // Default no-argument constructor
     }

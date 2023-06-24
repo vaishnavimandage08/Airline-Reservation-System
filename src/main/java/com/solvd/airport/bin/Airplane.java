@@ -25,4 +25,5 @@ public class Airplane {
     public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
+
 }

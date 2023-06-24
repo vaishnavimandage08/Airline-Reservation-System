@@ -21,10 +21,10 @@ import java.util.List;
 public class AirlinesDAOImpl implements AirlinesDao {
     private static final Logger logger = LogManager.getLogger(AirlinesDAOImpl.class);
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String INSERT ="INSERT INTO airlines(Airline_Id, Airline_Name) VALUES (?, ?)";
-    private static final String UPDATE ="UPDATE airlines SET Airline_Name=? WHERE Airline_Id=?";
-    private static final String DELETE ="DELETE FROM airlines WHERE Airline_Id = ?";
-    private static final String Get ="SELECT * FROM airlines WHERE Airline_Id = ?";
+    private static final String INSERT = "INSERT INTO airlines(Airline_Id, Airline_Name) VALUES (?, ?)";
+    private static final String UPDATE = "UPDATE airlines SET Airline_Name=? WHERE Airline_Id=?";
+    private static final String DELETE = "DELETE FROM airlines WHERE Airline_Id = ?";
+    private static final String Get = "SELECT * FROM airlines WHERE Airline_Id = ?";
 
     @Override
     public Airlines get(int id) {
@@ -46,21 +46,22 @@ public class AirlinesDAOImpl implements AirlinesDao {
         }
         return airlines;
     }
-   @Override
+
+    @Override
     public int insert(Airlines airlines) {
-       Connection connection = connectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         int result = 0;
-            try(PreparedStatement preparedStatement = connection.prepareStatement(INSERT);){
-                preparedStatement.setInt(1, airlines.getAirlineId());
-                preparedStatement.setString(2, airlines.getAirlineName());
-                result = preparedStatement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT);) {
+            preparedStatement.setInt(1, airlines.getAirlineId());
+            preparedStatement.setString(2, airlines.getAirlineName());
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
         } finally {
             connectionPool.releaseConnection(connection);
         }
-       return result;
-   }
+        return result;
+    }
 
     @Override
 
@@ -81,12 +82,12 @@ public class AirlinesDAOImpl implements AirlinesDao {
     }
 
     @Override
-    public int delete(Airlines airlines) {
+    public int delete(int id) {
         Connection connection = connectionPool.getConnection();
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setInt(1, airlines.getAirlineId());
+            preparedStatement.setInt(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());

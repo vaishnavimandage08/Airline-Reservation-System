@@ -7,6 +7,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 public class FlightHandler extends DefaultHandler {
     private static final String ARRIVAL = "arrival";
     private static final String FROM_AIRPORT_ID = "fromAirportId";

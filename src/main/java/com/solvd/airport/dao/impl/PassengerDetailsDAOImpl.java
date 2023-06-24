@@ -41,12 +41,11 @@ public class PassengerDetailsDAOImpl implements PassengerDetailsDao {
     }
 
     @Override
-    public int delete(PassengerDetails passengerDetails) {
+    public int delete(int id) {
         Connection connection = connectionPool.getConnection();
         int result = 0;
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setInt(1, passengerDetails.getPassengerId());
-
+            preparedStatement.setInt(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());
@@ -56,8 +55,9 @@ public class PassengerDetailsDAOImpl implements PassengerDetailsDao {
         return result;
     }
 
+
     @Override
-    public PassengerDetails get(int id)  {
+    public PassengerDetails get(int id) {
         throw new UnsupportedOperationException("Method insert() is not implemented yet.");
     }
 

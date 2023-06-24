@@ -7,4 +7,8 @@ public interface AirportService {
     void insertAirport(Airport airport);
 
     Airport getAirportById(int airportId);
+
+    void insertAirline(Airlines airline);
+
+    void updateAirline(Airlines airline);
 }

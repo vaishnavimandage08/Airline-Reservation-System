@@ -24,7 +24,7 @@ public class Tickets {
     @JsonProperty
     private int passengerDetailsId;
 
-    public Tickets(){
+    public Tickets() {
 
     }
 
@@ -84,6 +84,7 @@ public class Tickets {
     public void setPassengerDetailsId(int passengerDetailsId) {
         this.passengerDetailsId = passengerDetailsId;
     }
+
     @Override
     public String toString() {
         return "Ticket{" +

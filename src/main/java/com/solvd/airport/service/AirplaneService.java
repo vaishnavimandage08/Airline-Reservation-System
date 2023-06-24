@@ -5,4 +5,6 @@ import com.solvd.airport.bin.Airplane;
 public interface AirplaneService {
     void updateAirplane(Airplane airplane);
 
+    void insertAirplane(Airplane airplane);
+
 }

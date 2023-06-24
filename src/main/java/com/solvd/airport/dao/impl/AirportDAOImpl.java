@@ -80,11 +80,11 @@ public class AirportDAOImpl implements AirportDao {
     }
 
     @Override
-    public int delete(Airport airport) {
+    public int delete(int id) {
         Connection connection = connectionPool.getConnection();
         int result = 0;
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setInt(1, airport.getAirportId());
+            preparedStatement.setInt(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());

@@ -14,7 +14,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+
 
 public class AirlineServiceImpl implements AirlineService {
     private static final Logger logger = LogManager.getLogger(AirlineServiceImpl.class);
@@ -31,13 +31,22 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public void updateAirline(Airlines airline) {
-        airlinesDao.update(airline);
+        if (airline != null) {
+            airlinesDao.update(airline);
+        } else {
+            throw new NullPointerException("airline object is null. Cannot update.");
+        }
+    }
+    @Override
+    public void deleteAirline(int id) {
+        Airlines airline = airlinesDao.get(id);
+        if (airline != null) {
+            airlinesDao.delete(id);
+        } else {
+            throw new IllegalArgumentException("Airline with ID " + id + " does not exist. Cannot delete.");
+        }
     }
 
-    @Override
-    public void deleteAirline(Airlines airline) {
-        airlinesDao.delete(airline);
-    }
 
     @Override
     public Airlines getResult(String uri) {

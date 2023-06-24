@@ -19,18 +19,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class PaymentParserServiceImpl implements PaymentParserService {
-
     private final static Logger logger = LogManager.getLogger(PaymentParserServiceImpl.class);
-
     ObjectMapper objectMapper = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, true);
-
-
 
     @Override
     public void serialization(Payment payment, String file) {
         objectMapper.registerModule(new JavaTimeModule());
         try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File (file) ,payment);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(file), payment);
         } catch (IOException e) {
             logger.error("IO Exception occurred while writing PassengerDetails to JSON file", e);
             throw new RuntimeException(e);
@@ -39,12 +35,13 @@ public class PaymentParserServiceImpl implements PaymentParserService {
     @Override
     public void serialization(PassengerDetails passengerDetails, String file) {
         try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File (file) ,passengerDetails);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(file), passengerDetails);
         } catch (IOException e) {
             logger.error("IO Exception occurred while writing PassengerDetails to JSON file", e);
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public Booking deserializeBooking(String file) {
 
@@ -59,13 +56,14 @@ public class PaymentParserServiceImpl implements PaymentParserService {
         }
         return booking;
     }
+
     @Override
     public Tickets deserializeTickets(String file) {
         Tickets tickets;
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
         try {
-            tickets = objectMapper.readValue(new File (file), Tickets.class);
+            tickets = objectMapper.readValue(new File(file), Tickets.class);
         } catch (IOException e) {
             logger.error("File not found.");
             throw new RuntimeException(e);

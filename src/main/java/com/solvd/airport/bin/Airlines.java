@@ -14,7 +14,8 @@ public class Airlines {
         this.airlineName = airlineName;
         this.airlines = airlines;
     }
-    public Airlines(){
+
+    public Airlines() {
 
     }
 
@@ -25,6 +26,7 @@ public class Airlines {
     public String getAirlineName() {
         return airlineName;
     }
+
     public List<Airlines> getAirlines() {
         return airlines;
     }
@@ -36,15 +38,14 @@ public class Airlines {
     public void setAirlineName(String airlineName) {
         this.airlineName = airlineName;
     }
+
     public void setAirlines(List<Airlines> airlines) {
         this.airlines = airlines;
     }
+
     @Override
     public String toString() {
-        return "Airlines{" +
-                "airlineId=" + airlineId +
-                ", airlineName='" + airlineName + '\'' +
-                '}';
+        return "Airlines{" + "airlineId=" + airlineId + ", airlineName='" + airlineName + '\'' + '}';
     }
 
 

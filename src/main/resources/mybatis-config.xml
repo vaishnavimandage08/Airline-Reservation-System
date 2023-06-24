@@ -3,19 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties resource='db.properties'/>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/airport"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root123"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
             </dataSource>
         </environment>
     </environments>
 
     <mappers>
         <mapper resource="mappers/airportmapper.xml"/>
+        <mapper resource="mappers/airlinemapper.xml"/>
+        <mapper resource="mappers/passengerdetalsmapper.xml"/>
+        <mapper resource="mappers/airplanemapper.xml"/>
+
     </mappers>
 </configuration>

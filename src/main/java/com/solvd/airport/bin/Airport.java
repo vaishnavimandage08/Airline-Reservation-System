@@ -14,9 +14,10 @@ public class Airport {
     @XmlElement(name = "city")
     private String city;
 
-    public Airport(){
+    public Airport() {
 
     }
+
     public Airport(int airportId, String name, String country, String city) {
         this.airportId = airportId;
         this.name = name;
@@ -55,6 +56,7 @@ public class Airport {
     public void setCity(String city) {
         this.city = city;
     }
+
     @Override
     public String toString() {
         return "Airport [Airport_Id=" + airportId + ", Name=" + name + ", Country=" + country + ", City=" + city + "]";

@@ -1,10 +1,11 @@
 package com.solvd.airport;
 
 import com.solvd.airport.bin.*;
-import com.solvd.airport.service.AirlineService;
-import com.solvd.airport.service.impl.PassengerDetailsServiceImpl;
-import com.solvd.airport.service.mybatisimpl.AirportServiceImpl;
+import com.solvd.airport.service.AirplaneService;
 import com.solvd.airport.service.impl.AirlineServiceImpl;
+import com.solvd.airport.service.mybatisimpl.AirplaneServiceImpl;
+import com.solvd.airport.service.mybatisimpl.PassengerDetailsServiceImpl;
+import com.solvd.airport.service.mybatisimpl.AirportServiceImpl;
 import com.solvd.airport.service.impl.PaymentParserServiceImpl;
 import com.solvd.airport.service.impl.SeatParserServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -12,50 +13,58 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 
-;
-
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
 
-        AirportServiceImpl airportService = new AirportServiceImpl();
+        AirportServiceImpl airportServiceImpl = new AirportServiceImpl();
         // Create a new airport
         Airport airport = new Airport(11, "John Doe Airport", "USA", "New York");
-        airportService.insertAirport(airport);
+        airportServiceImpl.insertAirport(airport);
         logger.info("Inserted airport: " + airport);
 
-        // Get an airport by its ID
+//        // Get an airport by its ID
         int airportId = 3;
-        Airport retrievedAirport = airportService.getAirportById(airportId);
+        Airport retrievedAirport = airportServiceImpl.getAirportById(airportId);
         logger.info("Retrieved airport: " + retrievedAirport);
 
         // Creating new airlines
-        AirlineService airlineService = new AirlineServiceImpl();
-        airlineService.insertAirline(new Airlines(1, "Delta"));
+        airportServiceImpl.insertAirline(new Airlines(5, "ASA"));
         logger.info("New airline created.");
 
         // Updating airlines
         Airlines airline = new Airlines(1, "Delta");
-        airlineService.updateAirline(airline);
+        airportServiceImpl.updateAirline(airline);
         logger.info("Airline updated.");
 
-        // Deleting airlines
-        airlineService.deleteAirline(airline);
-        logger.info("Airline deleted.");
 
         // Creating an instance of the service
-        PassengerDetailsServiceImpl passangerDetailsServiceimpl = new PassengerDetailsServiceImpl();
+        PassengerDetailsServiceImpl passengerDetailsServiceimpl = new PassengerDetailsServiceImpl();
 
         // Creating a passenger details object with parameters
         PassengerDetails details = new PassengerDetails(5, "Taylor", "doe", "AB123456", "taylor.doe@example.com", "1233567890", 25, "Male");
 
         // Updating passenger details
-        passangerDetailsServiceimpl.updatePassengerDetails(details);
+        passengerDetailsServiceimpl.updatePassengerDetails(details);
         logger.info("Passenger details updated.");
 
-        AirlineServiceImpl airlineServiceImpl = new AirlineServiceImpl();
-        logger.info(airlineServiceImpl.getResult("src/main/resources/xml/airport.xml"));
+        // Create an instance of AirplaneService
+        AirplaneService airplaneService = new AirplaneServiceImpl();
+
+        Airplane airplane = new Airplane(3, "800");
+
+        // Insert the airplane
+        airplaneService.insertAirplane(airplane);
+        logger.info("Airplane details inserted.");
+
+        // Update the airplane
+        airplane.setCapacity("Airbus A320");
+        airplaneService.updateAirplane(airplane);
+        logger.info("Airplane details updated.");
+
+        AirlineServiceImpl airlineServiceImpl1 = new AirlineServiceImpl();
+        logger.info(airlineServiceImpl1.getResult("src/main/resources/xml/airport.xml"));
 
         //JAXB marshalling
         SeatParserServiceImpl seatParserServiceImpl = new SeatParserServiceImpl();
@@ -80,9 +89,9 @@ public class Main {
         logger.info("Serialization completed successfully.");
 
         //JACKSON Deserialize
-         paymentParserServiceImpl = new PaymentParserServiceImpl();
-         String JsonFile = "src/main/resources/json/booking.json";
-         String JsonFile1 = "src/main/resources/json/tickets.json";
+        paymentParserServiceImpl = new PaymentParserServiceImpl();
+        String JsonFile = "src/main/resources/json/booking.json";
+        String JsonFile1 = "src/main/resources/json/tickets.json";
         Booking booking = paymentParserServiceImpl.deserializeBooking(JsonFile);
         Tickets tickets = paymentParserServiceImpl.deserializeTickets(JsonFile1);
         logger.info(booking);

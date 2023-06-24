@@ -2,12 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.airport.db.mappers.AirportMapper">
+<mapper namespace="com.solvd.airport.dao.AirportDao">
     <insert id="insertAirport" parameterType="com.solvd.airport.bin.Airport">
         INSERT INTO airport (Airport_Id, Name, Country, City) VALUES (#{airportId},#{name}, #{country},#{city})
     </insert>
+    <update id="updateAirport" parameterType="com.solvd.airport.bin.Airport">
+        UPDATE airport SET Name = #{name}, Country = #{country}, City = #{city}
+        WHERE Airport_Id = #{airportId}
+    </update>
 
     <select id="getAirportById" parameterType="int" resultType="com.solvd.airport.bin.Airport">
         SELECT * FROM airport WHERE Airport_Id = #{airportId}
     </select>
+
+    <resultMap id="airportResultMap" type="com.solvd.airport.bin.Airport">
+        <id property="airportId" column="Airport_Id"/>
+        <result property="name" column="Name"/>
+        <result property="country" column="Country"/>
+        <result property="city" column="City"/>
+    </resultMap>
 </mapper>

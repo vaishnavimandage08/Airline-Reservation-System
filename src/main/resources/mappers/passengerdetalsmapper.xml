@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airport.dao.PassengerDetailsDao">
+
+    <update id="updatePassengerDetails" parameterType="com.solvd.airport.bin.PassengerDetails">
+        UPDATE passengerdetails
+        SET
+        First_Name = #{firstName},
+        Last_Name = #{lastName},
+        Passport_Number = #{passportNumber},
+        EmailAddress = #{emailAddress},
+        Phone_Number = #{phoneNumber},
+        Age = #{age},
+        Gender = #{gender}
+        WHERE Passenger_Id = #{passengerId}
+    </update>
+
+</mapper>

@@ -26,6 +26,7 @@ public class AirlinesHandler extends DefaultHandler {
             elementValue.append(ch, start, length);
         }
     }
+
     @Override
     public void startDocument() {
         airline = new Airlines();

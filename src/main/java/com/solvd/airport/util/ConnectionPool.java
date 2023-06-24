@@ -25,17 +25,19 @@ public class ConnectionPool {
     private List<Connection> connections;
     private Properties properties;
 
-    public ConnectionPool()  {
+    public ConnectionPool() {
         connections = new ArrayList<>();
         properties = loadProperties();
         initializePool();
     }
+
     public static synchronized ConnectionPool getInstance() {
         if (connectionPool == null) {
             connectionPool = new ConnectionPool();
         }
         return connectionPool;
     }
+
     private Properties loadProperties() {
         Properties properties = new Properties();
         try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
@@ -45,6 +47,7 @@ public class ConnectionPool {
         }
         return properties;
     }
+
     private void initializePool() {
         String dbUrl = properties.getProperty("db.url");
         String dbUser = properties.getProperty("db.username");
@@ -54,13 +57,13 @@ public class ConnectionPool {
             for (int i = 0; i < MAX_POOL_SIZE; i++) {
                 Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
                 connections.add(connection);
-                logger.debug("Added connection to the pool. Current pool size: " + connections.size());
             }
             logger.debug("Connection pool initialized with " + connections.size() + " connections.");
         } catch (ClassNotFoundException | SQLException e) {
             logger.error("Failed to initialize connection pool.", e);
         }
     }
+
     public synchronized Connection getConnection() {
         while (connections.isEmpty()) {
             try {
@@ -74,10 +77,10 @@ public class ConnectionPool {
         logger.debug("Acquired connection from the pool. Current pool size: " + connections.size());
         return connection;
     }
+
     public synchronized void releaseConnection(Connection connection) {
         connections.add(connection);
         logger.debug("Released connection to the pool. Current pool size: {}", connections.size());
         notify();
     }
-
 }

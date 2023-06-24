@@ -73,11 +73,12 @@ public class AirplaneDAOImpl implements AirplaneDao {
     }
 
     @Override
-    public int delete(Airplane airplane) {
+    public int delete(int id) {
         Connection connection = connectionPool.getConnection();
         int result = 0;
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setInt(1, airplane.getAirplaneId());
+            preparedStatement.setInt(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage());

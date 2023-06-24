@@ -75,6 +75,7 @@ public class Flight {
     public void setAirplaneId(int airplaneId) {
         this.airplaneId = airplaneId;
     }
+
     @Override
     public String toString() {
         return "Flight{" +
